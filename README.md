@@ -1,4 +1,6 @@
-<img src="download.svg" alt="Logo" width="160">
+<p align="center">
+  <img src="download.svg" alt="SAL Logo" width="200">
+</p>
 
 # SAL LIS APIs Documentation
 
