@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  <style>
+    .page-header { display: none; }
+    .main-content { padding-top: 2rem; }
+  </style>
+</head>
+<body>
+  <section class="main-content">
+    {{ content }}
+    <footer class="site-footer"></footer>
+  </section>
+</body>
+</html>
