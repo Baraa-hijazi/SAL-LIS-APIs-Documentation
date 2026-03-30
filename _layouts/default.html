@@ -8,12 +8,117 @@
   <style>
     .page-header { display: none; }
     .main-content { padding-top: 2rem; }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: #e1e1e1;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: background 0.3s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* Dark mode */
+    html[data-theme="dark"] {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    html[data-theme="dark"] .main-content {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    html[data-theme="dark"] .main-content h1,
+    html[data-theme="dark"] .main-content h2,
+    html[data-theme="dark"] .main-content h3,
+    html[data-theme="dark"] .main-content h4 {
+      color: #e6edf3;
+    }
+    html[data-theme="dark"] .main-content a {
+      color: #58a6ff;
+    }
+    html[data-theme="dark"] .main-content code {
+      background-color: #161b22;
+      color: #e6edf3;
+    }
+    html[data-theme="dark"] .main-content pre {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+    }
+    html[data-theme="dark"] .main-content pre code {
+      color: #c9d1d9;
+    }
+    html[data-theme="dark"] .main-content table th {
+      background-color: #161b22;
+      color: #e6edf3;
+    }
+    html[data-theme="dark"] .main-content table td {
+      border-color: #30363d;
+    }
+    html[data-theme="dark"] .main-content table tr {
+      background-color: #0d1117;
+      border-color: #30363d;
+    }
+    html[data-theme="dark"] .main-content table tr:nth-child(2n) {
+      background-color: #161b22;
+    }
+    html[data-theme="dark"] .main-content blockquote {
+      border-left-color: #3b434b;
+      color: #8b949e;
+    }
+    html[data-theme="dark"] .main-content hr {
+      border-color: #30363d;
+    }
+    html[data-theme="dark"] .theme-toggle {
+      background: #30363d;
+    }
+    /* Invert SVG logo in dark mode */
+    html[data-theme="dark"] .main-content img[alt="SAL Logo"] {
+      filter: brightness(0) invert(1);
+    }
   </style>
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
   <section class="main-content">
     {{ content }}
     <footer class="site-footer"></footer>
   </section>
+  <script>
+    (function() {
+      var btn = document.getElementById('themeToggle');
+      var html = document.documentElement;
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.setAttribute('data-theme', 'dark');
+        btn.textContent = '☀️';
+      }
+      btn.addEventListener('click', function() {
+        var isDark = html.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          html.removeAttribute('data-theme');
+          btn.textContent = '🌙';
+          localStorage.setItem('theme', 'light');
+        } else {
+          html.setAttribute('data-theme', 'dark');
+          btn.textContent = '☀️';
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
